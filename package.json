@@ -1,0 +1,27 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NagsaiPeddeti/devops-e3-app1.git"
+  },
+  "author": "Nagasai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NagsaiPeddeti/devops-e3-app1/issues"
+  },
+  "homepage": "https://github.com/NagsaiPeddeti/devops-e3-app1#readme",
+  "dependencies": {
+    "config": "^3.3.7",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "morgan": "^1.10.0",
+    "winston": "^3.7.2",
+    "winston-daily-rotate-file": "^4.6.1"
+  }
+}
