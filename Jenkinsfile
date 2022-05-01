@@ -33,7 +33,7 @@ pipeline {
                 stage("copy to build server"){
                     steps{
                         sshPublisher(publishers: [sshPublisherDesc(configName: 'docker3', 
-                        transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: "cd ${STACK}/${SERVICE}/${BRANCH_NAME} && sh deploy.sh", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '${STACK}/${SERVICE}/${BRANCH_NAME}/**/*')], 
+                        transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: "cd ${STACK}/${SERVICE}/${BRANCH_NAME} && sh deploy.sh", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: "${STACK}/${SERVICE}/${BRANCH_NAME}/**/*")], 
                         usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                     }
                 }
