@@ -1,8 +1,8 @@
 pipeline {
     agent any;
     environment {
-       STACK_NAME="demo"
-       SERVICE_NAME="app1"
+       STACK="demo"
+       SERVICE="app1"
        CODE_REPO="https://github.com/NagsaiPeddeti/devops-e3-app1.git"
        SCRIPTS_REPO="https://github.com/NagsaiPeddeti/devops-e3-ops.git"
     }
