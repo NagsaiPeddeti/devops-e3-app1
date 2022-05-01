@@ -19,7 +19,7 @@ pipeline {
                           branches: [[name: '*/develop']], 
                           extensions: 
                           [[$class: 'CloneOption', depth: 1, noTags: false, reference: '', shallow: true]],
-                           userRemoteConfigs: [[url: '${CODE_REPO}']]])  
+                           userRemoteConfigs: [[url: ${CODE_REPO}]]])  
                         }
                     }
                 }
@@ -27,7 +27,7 @@ pipeline {
                     steps{
                         checkout([$class: 'GitSCM', 
                         branches: [[name: '*/main']], extensions: [[$class: 'CloneOption', depth: 1, noTags: false, 
-                        reference: '${STACK}/${SERVICE}/${BRANCH_NAME}', shallow: true]], userRemoteConfigs: [[url: '${SCRIPTS_REPO}']]])
+                        reference: '${STACK}/${SERVICE}/${BRANCH_NAME}', shallow: true]], userRemoteConfigs: [[url: ${SCRIPTS_REPO}]]])
                     }
                 }
                 stage("copy to build server"){
