@@ -22,7 +22,7 @@ app.get("/",async (req,res,next)=>{
     res.send("application is working");
 })
 
-app.listen(process.env.PORT| 8080,function(){
+app.listen(process.env.PORT| 80,function(){
     console.log("application is running")
 })
 
