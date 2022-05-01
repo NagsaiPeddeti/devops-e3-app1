@@ -1,37 +1,48 @@
 pipeline {
-    agent {
-        // docker {
-        //     image 'node:6-alpine'
-        //     args '-p 3000:3000 -p 5000:5000'
-        // }
-    }
+    agent any;
     environment {
-       // CI = 'true'
+       STACK_NAME="demo"
+       SERVICE_NAME="app1"
+       CODE_REPO="https://github.com/NagsaiPeddeti/devops-e3-app1.git"
+       SCRIPTS_REPO="https://github.com/NagsaiPeddeti/devops-e3-ops.git"
     }
     stages {
-        stage('Build') {
-            steps {
-                sh 'npm install'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh './jenkins/scripts/test.sh'
-            }
-        }
         stage('Deliver for development') {
             when {
-                branch 'development' 
+                branch 'develop' 
             }
-            steps {
-                sh './jenkins/scripts/deliver-for-development.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh './jenkins/scripts/kill.sh'
+            stages{
+                stage("code checkout"){
+                    steps{
+                        dir("${STACK}/${SERVICE}/${BRANCH_NAME}/code"){
+                          checkout([$class: 'GitSCM', 
+                          branches: [[name: '*/develop']], 
+                          extensions: 
+                          [[$class: 'CloneOption', depth: 1, noTags: false, reference: '', shallow: true]],
+                           userRemoteConfigs: [[url: '${CODE_REPO}']]])  
+                        }
+                    }
+                }
+                stage("build scripts checkout"){
+                    steps{
+                        checkout([$class: 'GitSCM', 
+                        branches: [[name: '*/main']], extensions: [[$class: 'CloneOption', depth: 1, noTags: false, 
+                        reference: '${STACK}/${SERVICE}/${BRANCH_NAME}', shallow: true]], userRemoteConfigs: [[url: '${SCRIPTS_REPO}']]])
+                    }
+                }
+                stage("copy to build server"){
+                    steps{
+                        sshPublisher(publishers: [sshPublisherDesc(configName: 'docker3', 
+                        transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'cd ${STACK}/${SERVICE}/${BRANCH_NAME} && sh deploy.sh', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '${STACK}/${SERVICE}/${BRANCH_NAME}/**/*')], 
+                        usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                    }
+                }
             }
+            
         }
         stage('Deploy for production') {
             when {
-                branch 'production'  
+                branch 'main'  
             }
             steps {
                 sh './jenkins/scripts/deploy-for-production.sh'
