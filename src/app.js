@@ -4,7 +4,7 @@ const path = require('path');
 
 const logger = require('morgan');
 const cors =require("cors");
-
+const config= require("config")
 
 
 
@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.get("/",async (req,res,next)=>{
-    res.send("application is working");
+    res.send(`application is working on ${config.get("configName")}`);
 })
 
 app.listen(process.env.PORT| 80,function(){
@@ -43,3 +43,4 @@ app.use(function(err, req, res, next) {
   res.send('error');
 });
 
+      
