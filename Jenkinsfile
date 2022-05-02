@@ -7,7 +7,7 @@ pipeline {
        SCRIPTS_REPO="https://github.com/NagsaiPeddeti/devops-e3-ops.git"
     }
     stages {
-        stage('Deliver for development') {
+        stage('Deliver for uat') {
             when {
                 branch 'develop' 
             }
@@ -71,7 +71,7 @@ pipeline {
                           checkout([$class: 'GitSCM', 
                           branches: [[name: '*/main']], 
                           extensions: 
-                          [[$class: 'CloneOption', depth: 1, noTags: false, reference: 'package.json', shallow: true]],
+                          [[$class: 'CloneOption', depth: 1, noTags: false, reference: '', shallow: true]],
                            userRemoteConfigs: [[url: "${CODE_REPO}"]]])  
                         }
                     }
@@ -87,7 +87,7 @@ pipeline {
                  stage("deploy"){
                     steps{
                         sshPublisher(publishers: [sshPublisherDesc(configName: 'docker3', 
-                        transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: "cd ${STACK}/${SERVICE}/${BRANCH_NAME} && sh deploy.sh ${STACK} ${SERVICE} ${BRANCH_NAME}", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: "*/*")], 
+                        transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: "cd ${STACK}/${SERVICE}/${BRANCH_NAME} && sh deploy.sh ${STACK} ${SERVICE} ${BRANCH_NAME}", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: "${STACK}/${SERVICE}/${BRANCH_NAME}/**/*")], 
                         usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
                     }
                 }
