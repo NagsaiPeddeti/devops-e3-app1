@@ -1,11 +1,12 @@
 {
   "name": "y",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/app.js"
+    "start": "node -r ./src/tracer.js ./src/app.js",
+    "dev": "node src/app.js"
   },
   "repository": {
     "type": "git",
@@ -18,12 +19,15 @@
   },
   "homepage": "https://github.com/NagsaiPeddeti/devops-e3-app1#readme",
   "dependencies": {
+    "@opentelemetry/api": "^1.1.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.28.0",
+    "@opentelemetry/exporter-zipkin": "^1.2.0",
+    "@opentelemetry/sdk-node": "^0.28.0",
     "config": "^3.3.7",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "morgan": "^1.10.0",
     "winston": "^3.7.2",
-    "winston-daily-rotate-file": "^4.6.1",
     "winston-loki": "^6.0.5"
   }
 }
