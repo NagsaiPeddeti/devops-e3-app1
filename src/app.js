@@ -5,6 +5,7 @@ const path = require('path');
 const logger = require('morgan');
 const cors =require("cors");
 const config= require("config")
+const Logger=require("./logger");
 
 
 
@@ -20,6 +21,11 @@ app.use(express.urlencoded({ extended: false }));
 
 app.get("/",async (req,res,next)=>{
     res.send(`application is working on ${config.get("configName")}`);
+})
+app.get("/api1", async (req,res,next)=>{
+  Logger.info("api1 called");
+
+  res.send("api1 working fine");
 })
 
 app.listen(process.env.PORT| 80,function(){

@@ -1,3 +1,9 @@
 {
-    "configName":"LOCAL"
+    "configName":"LOCAL",
+    "logProperties":{
+        "path":"",
+        "filename":"app1.log",
+        "level":"debug",
+        "serviceName":"app1"
+    }
 }
