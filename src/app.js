@@ -28,7 +28,7 @@ app.get("/api1", async (req,res,next)=>{
   res.send("api1 working fine");
 })
 
-app.listen(process.env.PORT| 8080,function(){
+app.listen(process.env.PORT| 80,function(){
     console.log("application is running")
 })
 
