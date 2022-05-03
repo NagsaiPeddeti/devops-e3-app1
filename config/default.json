@@ -1,8 +1,8 @@
 {
     "configName":"LOCAL",
     "logProperties":{
-        "path":"",
-        "filename":"app1.log",
+        "lokiLogger":false,
+        "lokiUrl":"http://127.0.0.1:3100",
         "level":"debug",
         "serviceName":"app1"
     }

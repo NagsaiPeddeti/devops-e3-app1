@@ -1,6 +1,6 @@
 {
   "name": "y",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "src/app.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "express": "^4.17.3",
     "morgan": "^1.10.0",
     "winston": "^3.7.2",
-    "winston-daily-rotate-file": "^4.6.1"
+    "winston-daily-rotate-file": "^4.6.1",
+    "winston-loki": "^6.0.5"
   }
 }
