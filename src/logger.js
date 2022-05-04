@@ -8,14 +8,13 @@ const logger = winston.createLogger({
   format: winston.format.json(),
   defaultMeta: {labels:{ service: config.get("logProperties.serviceName")} },
   transports: [
+    new LokiTransport({
+      host: config.get("logProperties.lokiUrl")
+    }),
     new winston.transports.Console()
   ],
 });
 
-if (config.get("logProperties.lokiLogger")) {
-    logger.add( new LokiTransport({
-        host: config.get("logProperties.lokiUrl")
-      }));
-  }
+
 
 module.exports=logger;

@@ -19,12 +19,12 @@ const options = {
 
 // configure the SDK to export telemetry data to the console
 // enable all auto-instrumentations from the meta package
-//const traceExporter = new ConsoleSpanExporter();
+const traceExporter = new ConsoleSpanExporter();
 const sdk = new opentelemetry.NodeSDK({
   resource: new Resource({
     [SemanticResourceAttributes.SERVICE_NAME]: config.get("tracerProperties.serviceName"),
   }),
-  exporter,
+  traceExporter,
   instrumentations: [getNodeAutoInstrumentations()]
 });
 
